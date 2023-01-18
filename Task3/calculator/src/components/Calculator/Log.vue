@@ -1,14 +1,12 @@
 <template>
-    <div class="flex justify-center">
-        <div class="w-full sm:w-2/5 text-start h-1/2 border-2 p-5 m-5 border-black">
-            <div class="text-lg font-bold pb-5">
+    <div class="flex-center">
+        <div id="log-box">
+            <h3>
                 Log:
-            </div>
-            <div class="p-5 max-h-48 overflow-y-scroll">
-                <ul class="list-disc">
-                    <li class="p-2" v-for="item in logItems">{{ item }}</li>
-                </ul>
-            </div>
+            </h3>
+            <ul>
+                <li v-for="item in logItems">{{ item }}</li>
+            </ul>
         </div>
     </div>
 </template>
@@ -36,3 +34,32 @@ export default defineComponent({
     },
 });
 </script>
+
+<style scoped>
+#log-box {
+    width: 100%;
+    text-align: start;
+    height: 50%;
+    border-width: 2px;
+    padding: 20px;
+    margin: 20px;
+    border-color: black;
+}
+
+@media (min-width: 640px) {
+    #log-box {
+        width: 40%;
+    }
+}
+
+ul {
+    padding: 20px;
+    max-height: 160px;
+    overflow-y: scroll;
+    border-bottom: 1px solid black;
+}
+
+ul li {
+    padding: 8px;
+}
+</style>

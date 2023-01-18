@@ -1,6 +1,5 @@
 <template>
-    <div class="text-base rounded-md shadow-lg py-2 m-1"
-        :class="background, disabled ? '' : 'hover:opacity-95 cursor-pointer'" :disabled="disabled">
+    <div id="base-button" :class="[background, disabled ? '' : 'undisabled-button']" :disabled="disabled">
         {{ type }}
     </div>
 </template>
@@ -14,7 +13,7 @@ export default defineComponent({
         type: String,
         background: {
             type: String,
-            default: 'bg-gray-600',
+            default: 'gray',
         },
     },
     computed: {
@@ -24,3 +23,27 @@ export default defineComponent({
     },
 });
 </script>
+
+<style scoped>
+#base-button {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    border-radius: 6px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    margin: 4px;
+    background-color: rgb(75 85 99);
+}
+
+.undisabled-button:hover {
+    opacity: 95%;
+}
+
+.undisabled-button {
+    cursor: pointer;
+}
+
+.orange {
+    background-color: rgb(251 146 60) !important;
+}
+</style>
