@@ -1,28 +1,28 @@
 <template>
-  <div class="flex justify-center">
-    <div class="p-10 text-center text-white w-full sm:w-2/5">
-      <div class="px-5 py-2 min-w-fit overflow-auto text-center mb-4 bg-slate-700 text-2xl font-semibold">
+  <div class="flex-center">
+    <div id="calculator">
+      <div id="calculator-display">
         {{ value }}
       </div>
 
-      <div class="flex">
-        <div class="basis-3/4">
-          <div class="grid grid-cols-3">
+      <div class="flex-center">
+        <div id="numbers-plus">
+          <div class="buttons-3-grid">
             <Button type="C" @click="value = '0'; showingResult = true;" />
             <Button type="ANS" @click="value = '0'; showingResult = true;" />
             <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')" />
           </div>
-          <div class="grid grid-cols-3">
+          <div class="buttons-3-grid">
             <Button v-for="number in 9" :key="number" :type="number.toString()"
               @click="addToValue(number.toString())" />
           </div>
-          <div class="grid grid-cols-3">
+          <div class="buttons-3-grid">
             <Button v-for="button in bottom" :key="button" :type="button" @click="addToValue(button)" />
           </div>
         </div>
-        <div class="grid grid-cols-1 basis-1/4">
+        <div id="operators">
           <Button v-for="button in operators" :key="button" :type="button" @click="addOperator(button)" />
-          <Button type="=" background="bg-orange-400" @click="compute()" />
+          <Button type="=" background="orange" @click="compute()" />
         </div>
       </div>
     </div>
@@ -141,115 +141,49 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.bg-orange-400 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
-}
-
-.flex {
-  display: flex;
-}
-
-.grid {
-  display: grid;
-}
-
-.justify-center {
-  justify-content: center;
-}
-
-.text-center {
+#calculator-display {
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  min-width: fit-content;
+  overflow: auto;
   text-align: center;
+  margin-bottom: 1rem;
+  background-color: rgb(51 65 85);
+  font-size: 1.5rem;
+  font-weight: 600;
+  line-height: 2rem;
 }
 
-.text-white {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
-}
-
-.w-full {
+#calculator {
+  padding: 2.5rem;
+  text-align: center;
+  color: rgb(255 255 255);
   width: 100%;
 }
 
 @media (min-width: 640px) {
-  .sm\:w-2\/5 {
+  #calculator {
     width: 40%;
   }
 }
 
-.px-5 {
-  padding-left: 1.25rem
-    /* 20px */
-  ;
-  padding-right: 1.25rem
-    /* 20px */
-  ;
-}
-
-.py-2 {
-  padding-top: 0.5rem
-    /* 8px */
-  ;
-  padding-bottom: 0.5rem
-    /* 8px */
-  ;
-}
-
-.min-w-fit {
-  min-width: fit-content;
-}
-
-.overflow-auto {
-  overflow: auto;
-}
-
-.mb-4 {
-  margin-bottom: 1rem
-    /* 16px */
-  ;
-}
-
-.bg-slate-700 {
-  --tw-bg-opacity: 1;
-  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
-}
-
-.text-2xl {
-  font-size: 1.5rem
-    /* 24px */
-  ;
-  line-height: 2rem
-    /* 32px */
-  ;
-}
-
-.font-semibold {
-  font-weight: 600;
-}
-
-.p-10 {
-  padding: 2.5rem
-    /* 40px */
-  ;
-}
-
-.basis-3\/4 {
+#numbers-plus {
   flex-basis: 75%;
 }
 
-.grid-cols-3 {
+.buttons-3-grid {
+  display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }
 
-.basis-3\/4 {
-  flex-basis: 75%;
-}
-
-.grid-cols-1 {
+#operators {
+  display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.basis-1\/4 {
   flex-basis: 25%;
+
+
+
 }
 </style>
