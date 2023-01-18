@@ -36,3 +36,91 @@ export default defineComponent({
     },
 });
 </script>
+
+<style scoped>
+.p-2 {
+    padding: 0.5rem
+        /* 8px */
+    ;
+}
+
+.list-disc {
+    list-style-type: disc;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+}
+
+.max-h-48 {
+    max-height: 12rem
+        /* 192px */
+    ;
+}
+
+.pb-5 {
+    padding-bottom: 1.25rem
+        /* 20px */
+    ;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-lg {
+    font-size: 1.125rem
+        /* 18px */
+    ;
+    line-height: 1.75rem
+        /* 28px */
+    ;
+}
+
+.border-black {
+    --tw-border-opacity: 1;
+    border-color: rgb(0 0 0 / var(--tw-border-opacity));
+}
+
+.m-5 {
+    margin: 1.25rem
+        /* 20px */
+    ;
+}
+
+.border-2 {
+    border-width: 2px;
+}
+
+.p-5 {
+    padding: 1.25rem
+        /* 20px */
+    ;
+}
+
+.h-1\/2 {
+    height: 50%;
+}
+
+.text-start {
+    text-align: start;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.w-full {
+    width: 100%;
+}
+
+@media (min-width: 640px) {
+    .sm\:w-2\/5 {
+        width: 40%;
+    }
+}
+</style>

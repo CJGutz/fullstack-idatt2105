@@ -1,3 +1,10 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+* {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+}
+
+
+body {
+    font-family: ui-sans-serif, system-ui, "Segoe UI", "Helvetica Neue", Arial;
+}

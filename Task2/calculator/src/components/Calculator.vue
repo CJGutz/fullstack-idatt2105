@@ -139,3 +139,117 @@ export default defineComponent({
   }),
 });
 </script>
+
+<style scoped>
+.bg-orange-400 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(251 146 60 / var(--tw-bg-opacity));
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.w-full {
+  width: 100%;
+}
+
+@media (min-width: 640px) {
+  .sm\:w-2\/5 {
+    width: 40%;
+  }
+}
+
+.px-5 {
+  padding-left: 1.25rem
+    /* 20px */
+  ;
+  padding-right: 1.25rem
+    /* 20px */
+  ;
+}
+
+.py-2 {
+  padding-top: 0.5rem
+    /* 8px */
+  ;
+  padding-bottom: 0.5rem
+    /* 8px */
+  ;
+}
+
+.min-w-fit {
+  min-width: fit-content;
+}
+
+.overflow-auto {
+  overflow: auto;
+}
+
+.mb-4 {
+  margin-bottom: 1rem
+    /* 16px */
+  ;
+}
+
+.bg-slate-700 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(51 65 85 / var(--tw-bg-opacity));
+}
+
+.text-2xl {
+  font-size: 1.5rem
+    /* 24px */
+  ;
+  line-height: 2rem
+    /* 32px */
+  ;
+}
+
+.font-semibold {
+  font-weight: 600;
+}
+
+.p-10 {
+  padding: 2.5rem
+    /* 40px */
+  ;
+}
+
+.basis-3\/4 {
+  flex-basis: 75%;
+}
+
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.basis-3\/4 {
+  flex-basis: 75%;
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.basis-1\/4 {
+  flex-basis: 25%;
+}
+</style>
