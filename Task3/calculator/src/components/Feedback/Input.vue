@@ -1,10 +1,10 @@
 <template>
-    <div class="m-3">
-        <label :id="inputLabel" class="p-5 text-lg">{{ inputLabel }}</label>
-        <input :value="modelValue" :placeholder="inputLabel"
+    <div>
+        <label :id="inputLabel">{{ inputLabel }}</label>
+        <component :value="modelValue" :placeholder="inputLabel"
             @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" :id="inputLabel"
-            class="border-4 p-1" :class="error ? 'border-red-500' : ''" v-bind="$attrs" />
-        <div v-if="error" class="text-red-500">
+            :style="{ borderColor: error ? 'red' : '' }" v-bind="$attrs" :is="component" />
+        <div v-if="error" id="error-message">
             {{ error }}
         </div>
     </div>
@@ -26,7 +26,27 @@ export default defineComponent({
         error: {
             type: String,
             default: '',
+        },
+        component: {
+            type: String,
+            default: 'input',
         }
     }
 })
 </script>
+
+<style scoped>
+label {
+    padding: 20px;
+}
+
+input,
+textarea {
+    border: 4px black solid;
+    padding: 4px;
+}
+
+#error-message {
+    color: red;
+}
+</style>

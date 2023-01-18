@@ -1,16 +1,15 @@
 <template>
     <form @submit.prevent="submit">
-        <fieldset class="mb-10">
+        <fieldset>
             <Input input-label="Name" v-model="name" :error="errors.name" />
             <Input input-label="Email" v-model="email" :error="errors.email" type="email" />
-            <Input input-label="Message" v-model="message" :error="errors.message" class="h-32" />
+            <Input input-label="Message" v-model="message" :error="errors.message" component="textarea" />
         </fieldset>
-        <button :disabled="hasErrors" type="submit" :class="hasErrors ? 'opacity-50' : ''"
-            class="border-2 border-black px-3 bg-slate-800 text-white">Submit</button>
+        <button :disabled="hasErrors" type="submit">Submit</button>
     </form>
-    <div v-if="submitMessage" class="text-xl font-bold m-10 border-b-yellow-300 border-b-4">
+    <h2 v-if="submitMessage" id="submit-message">
         {{ submitMessage }}
-    </div>
+    </h2>
 </template>
 
 <script lang="ts">
@@ -79,3 +78,27 @@ export default defineComponent({
     },
 })
 </script>
+
+<style scoped>
+fieldset {
+    margin-bottom: 40px;
+}
+
+button {
+    border-width: 2px;
+    border: black solid 2px;
+    padding-left: 12px;
+    padding-right: 12px;
+    background-color: rgb(30 41 59);
+    color: white;
+}
+
+.error-button {
+    opacity: 0.5;
+}
+
+#submit-message {
+    margin-top: 40px;
+    border-bottom: rgb(247, 247, 12) solid 4px;
+}
+</style>
