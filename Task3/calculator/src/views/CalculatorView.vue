@@ -9,11 +9,7 @@ import { defineComponent } from 'vue';
 import Calculator from '@/components/Calculator/Calculator.vue';
 import Intro from '@/components/Calculator/Intro.vue';
 import Log from '@/components/Calculator/Log.vue';
-
-interface LogItem {
-  computation: string,
-  result: number,
-}
+import { LogItem } from '@/components/Calculator/Log.vue';
 
 export default defineComponent({
   components: {

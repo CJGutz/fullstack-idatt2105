@@ -14,7 +14,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 
-interface LogItem {
+export interface LogItem {
     computation: string,
     result: number,
 }
