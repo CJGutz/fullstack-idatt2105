@@ -1,28 +1,31 @@
 <template>
   <div class="flex-center">
     <div id="calculator">
-      <div id="calculator-display">
+      <div id="calculator-display" data-testid="calculator-display">
         {{ value }}
       </div>
 
       <div class="flex-center">
         <div id="numbers-plus">
           <div class="buttons-3-grid">
-            <Button type="C" @click="value = '0'; showingResult = true;" />
-            <Button type="ANS" @click="value = '0'; showingResult = true;" />
-            <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')" />
+            <Button type="C" @click="value = '0'; showingResult = true;" data-testid="calculator-button-C" />
+            <Button type="ANS" @click="value = '0'; showingResult = true;" data-testid="calculator-button-AC" />
+            <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')"
+              data-testid="calculator-button-DEL" />
           </div>
           <div class="buttons-3-grid">
-            <Button v-for="number in 9" :key="number" :type="number.toString()"
-              @click="addToValue(number.toString())" />
+            <Button v-for="number in 9" :key="number" :type="number.toString()" @click="addToValue(number.toString())"
+              :data-testid="`calculator-button-${number}`" />
           </div>
           <div class="buttons-3-grid">
-            <Button v-for="button in bottom" :key="button" :type="button" @click="addToValue(button)" />
+            <Button v-for="button in bottom" :key="button" :type="button" @click="addToValue(button)"
+              :data-testid="`calculator-button-${button}`" />
           </div>
         </div>
         <div id="operators">
-          <Button v-for="button in operators" :key="button" :type="button" @click="addOperator(button)" />
-          <Button type="=" background="orange" @click="compute()" />
+          <Button v-for="button in operators" :key="button" :type="button" @click="addOperator(button)"
+            :data-testid="`calculator-button-${button}`" />
+          <Button type="=" background="orange" @click="compute()" data-testid="calculator-button-=" />
         </div>
       </div>
     </div>
