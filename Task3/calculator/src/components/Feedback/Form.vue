@@ -1,9 +1,11 @@
 <template>
     <form @submit.prevent="submit">
         <fieldset>
-            <Input input-label="Name" v-model="name" :error="errors.name" />
-            <Input input-label="Email" v-model="email" :error="errors.email" type="email" />
-            <Input input-label="Message" v-model="message" :error="errors.message" component="textarea" />
+            <Input input-label="Name" v-model="name" :error="errors.name" data-testid="form-input-name" />
+            <Input input-label="Email" v-model="email" :error="errors.email" type="email"
+                data-testid="form-input-email" />
+            <Input input-label="Message" v-model="message" :error="errors.message" component="textarea"
+                data-testid="form-input-message" />
         </fieldset>
         <button :disabled="hasErrors" type="submit">Submit</button>
     </form>
@@ -18,7 +20,7 @@ import Input from '@/components/Feedback/Input.vue';
 import { useForm, useField, FieldContext } from 'vee-validate';
 import { object as yupObject, string as yupString } from 'yup';
 import { Store } from 'vuex';
-import axios from 'axios';
+import { postForm } from '@/services/form';
 
 export default defineComponent({
     components: {
@@ -48,18 +50,17 @@ export default defineComponent({
 
         const submitMessage = ref('')
 
-        const submit: any = handleSubmit((values) => {
-            axios.post('http://localhost:3000/data/', {})
-                .then(() => {
-                    setMessage('')
-                    store.dispatch('saveFeedbackInfo', values)
-                    submitMessage.value = 'Thanks for your feedback!'
-                    setTimeout(() => {
-                        submitMessage.value = ''
-                    }, 3000)
-                }).catch(() => {
-                    submitMessage.value = 'Something went wrong. Please try again later.'
-                })
+        const submit = handleSubmit(async (values) => {
+            if (await postForm()) {
+                setMessage('')
+                store.dispatch('saveFeedbackInfo', values)
+                submitMessage.value = 'Thanks for your feedback!'
+                setTimeout(() => {
+                    submitMessage.value = ''
+                }, 3000)
+            } else {
+                submitMessage.value = 'Something went wrong. Please try again later.'
+            }
         })
 
         return {
