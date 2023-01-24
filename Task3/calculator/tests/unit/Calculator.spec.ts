@@ -1,5 +1,6 @@
 import Calculator from '@/components/Calculator/Calculator.vue'
 import { mount } from '@vue/test-utils'
+import { describe, test, expect } from 'vitest'
 
 describe('Calculator', () => {
   test('Calculator render display with 0 successfully at mount', () => {

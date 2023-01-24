@@ -1,10 +1,7 @@
 import Form from '@/components/Feedback/Form.vue'
 import { mount } from '@vue/test-utils'
-import axios from 'axios'
+import { describe, test, expect } from 'vitest'
 
-jest.mock('@/services/form')
-jest.mock('axios')
-jest.spyOn(axios, 'post').mockResolvedValue({ "data": {} })
 describe('Form', () => {
     test('Form displays name, email and message inputs', () => {
         const wrapper = mount(Form)

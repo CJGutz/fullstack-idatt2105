@@ -1,5 +1,6 @@
 import Log from '@/components/Calculator/Log.vue'
 import { mount } from '@vue/test-utils'
+import { describe, test, expect } from 'vitest'
 
 describe('Log', () => {
     test('Log has no list items at mount', () => {
