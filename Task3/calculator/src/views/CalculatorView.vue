@@ -5,11 +5,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Calculator from '@/components/Calculator/Calculator.vue';
-import Intro from '@/components/Calculator/Intro.vue';
-import Log from '@/components/Calculator/Log.vue';
-import { LogItem } from '@/components/Calculator/Log.vue';
+import { defineComponent } from "vue";
+import Calculator from "@/components/Calculator/Calculator.vue";
+import Intro from "@/components/Calculator/Intro.vue";
+import Log from "@/components/Calculator/Log.vue";
+import { LogItem } from "@/components/Calculator/Log.vue";
 
 export default defineComponent({
   components: {
@@ -28,6 +28,5 @@ export default defineComponent({
       });
     },
   },
-}
-);
+});
 </script>

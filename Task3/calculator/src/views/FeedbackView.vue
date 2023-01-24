@@ -4,12 +4,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import FeedbackForm from '@/components/Feedback/Form.vue';
+import { defineComponent } from "vue";
+import FeedbackForm from "@/components/Feedback/Form.vue";
 
 export default defineComponent({
   components: {
     FeedbackForm,
-  }
-})
+  },
+});
 </script>

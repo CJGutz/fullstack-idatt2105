@@ -8,8 +8,14 @@
       <div class="flex-center">
         <div id="numbers-plus">
           <div class="buttons-3-grid">
-            <Button type="C" @click="value = '0'; showingResult = true;" data-testid="calculator-button-C" />
-            <Button type="ANS" @click="value = '0'; showingResult = true;" data-testid="calculator-button-AC" />
+            <Button type="C" @click="
+  value = '0';
+showingResult = true;
+            " data-testid="calculator-button-C" />
+            <Button type="ANS" @click="
+  value = '0';
+showingResult = true;
+            " data-testid="calculator-button-AC" />
             <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')"
               data-testid="calculator-button-DEL" />
           </div>
@@ -33,20 +39,20 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import Button from './Button.vue';
+import { defineComponent } from "vue";
+import Button from "./Button.vue";
 
 export default defineComponent({
-  name: 'Calculator',
+  name: "Calculator",
   components: {
     Button,
   },
   methods: {
     compute() {
-      let result = this.evaluateExpression(this.value).toString()
-      this.showingResult = true
-      this.$emit('finish-computation', this.value, result)
-      this.value = result
+      let result = this.evaluateExpression(this.value).toString();
+      this.showingResult = true;
+      this.$emit("finish-computation", this.value, result);
+      this.value = result;
     },
     addToValue(value: string) {
       if (this.showingResult) {
@@ -67,11 +73,11 @@ export default defineComponent({
       let outputQueue = "";
       let operatorStack = [] as string[];
       let operators = {
-        "/": 3,
-        "*": 3,
-        "+": 2,
-        "-": 2
-      } as { [key: string]: number }
+        "/": 2,
+        "*": 2,
+        "+": 1,
+        "-": 1,
+      } as { [key: string]: number };
       expression = expression.replace(/\s+/g, "");
       let currentNumber = "";
       for (let i = 0; i < expression.length; i++) {
@@ -81,8 +87,7 @@ export default defineComponent({
           if (i === expression.length - 1) {
             outputQueue += currentNumber + " ";
           }
-        }
-        else {
+        } else {
           outputQueue += currentNumber + " ";
           currentNumber = "";
           if (token in operators) {
@@ -94,7 +99,7 @@ export default defineComponent({
             }
             operatorStack.push(o1);
           } else {
-            return "Error: Invalid characters"
+            return "Error: Invalid characters";
           }
         }
       }
@@ -185,8 +190,5 @@ export default defineComponent({
   display: grid;
   grid-template-columns: repeat(1, minmax(0, 1fr));
   flex-basis: 25%;
-
-
-
 }
 </style>
