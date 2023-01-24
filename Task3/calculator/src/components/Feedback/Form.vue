@@ -76,11 +76,16 @@ export default defineComponent({
             errors,
             submit,
             submitMessage,
+            schema,
         };
     },
     computed: {
         hasErrors(): boolean {
-            return Object.keys(this.errors ? this.errors : {}).length > 0;
+            return !this.schema.isValidSync({
+                name: this.name,
+                email: this.email,
+                message: this.message,
+            });
         },
     },
 });
@@ -98,6 +103,10 @@ button {
     padding-right: 12px;
     background-color: rgb(30 41 59);
     color: white;
+}
+
+button[disabled] {
+    opacity: 0.5;
 }
 
 .error-button {

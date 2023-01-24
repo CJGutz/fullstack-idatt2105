@@ -1,17 +1,9 @@
 <template>
   <div>
     <label :id="inputLabel">{{ inputLabel }}</label>
-    <component
-      :value="modelValue"
-      :placeholder="inputLabel"
-      @input="
-        $emit('update:modelValue', ($event.target as HTMLInputElement).value)
-      "
-      :id="inputLabel"
-      :style="{ borderColor: error ? 'red' : '' }"
-      v-bind="$attrs"
-      :is="component"
-    />
+    <component :value="modelValue" :placeholder="inputLabel" @input="
+      $emit('update:modelValue', ($event.target as HTMLInputElement).value)
+    " :id="inputLabel" :style="{ borderColor: error ? 'red' : '' }" v-bind="$attrs" :is="component" />
     <div v-if="error" id="error-message">
       {{ error }}
     </div>

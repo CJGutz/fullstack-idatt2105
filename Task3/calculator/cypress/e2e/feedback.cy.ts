@@ -25,6 +25,20 @@ describe("Tests for trying out form for feedback", () => {
         cy.contains("#error-message", "Not a valid email")
     })
 
+    it("Submit button is disabled at start of page reload", () => {
+        cy.contains("button", "Submit").should("be.disabled")
+    })
+
+    it("Submit button is disabled when form is invalid", () => {
+        cy.contains("button", "Submit").should("be.disabled")
+        cy.get("input[id='Name']").type("example name")
+        cy.get("input[id='Email']").type("invalid email")
+        cy.get("textarea[id='Message']").type("example message")
+        cy.contains("button", "Submit").should("be.disabled")
+        cy.get("input[id='Email']").clear().type("exampleEmail@example.com")
+        cy.contains("button", "Submit").should("not.be.disabled")
+    })
+
     it("Submitting form shows network error message when server is offline", () => {
         cy.get("input[id='Name']").type("example name")
         cy.get("input[id='Email']").type("exampleEmail@example.com")
@@ -42,6 +56,5 @@ describe("Tests for trying out form for feedback", () => {
         cy.get("textarea[id='Message']").type("example message")
         cy.get("form").submit()
         cy.contains("#submit-message", "Thanks for your feedback!")
-
     })
 })
