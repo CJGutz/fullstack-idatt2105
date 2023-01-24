@@ -61,12 +61,12 @@ export default defineComponent({
                 setMessage("");
                 store.dispatch("saveFeedbackInfo", values);
                 submitMessage.value = "Thanks for your feedback!";
-                setTimeout(() => {
-                    submitMessage.value = "";
-                }, 3000);
             } else {
                 submitMessage.value = "Something went wrong. Please try again later.";
             }
+            setTimeout(() => {
+                submitMessage.value = "";
+            }, 3000);
         });
 
         return {
