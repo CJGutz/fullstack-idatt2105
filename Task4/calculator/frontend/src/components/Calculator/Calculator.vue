@@ -11,11 +11,11 @@
             <Button type="C" @click="
               value = '0';
             showingResult = true;
-                                        " data-testid="calculator-button-C" />
+                                                                                  " data-testid="calculator-button-C" />
             <Button type="ANS" @click="
               value = '0';
             showingResult = true;
-                                        " data-testid="calculator-button-AC" />
+                                                                                  " data-testid="calculator-button-AC" />
             <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')"
               data-testid="calculator-button-DEL" />
           </div>
@@ -49,8 +49,14 @@ export default defineComponent({
     Button,
   },
   methods: {
-    compute() {
-      let result = this.evaluateExpression(this.value).toString();
+    async compute() {
+      let result = await this.evaluateExpression(this.value);
+      if (result == undefined || result == null) {
+        this.value = "Invalid"
+        return
+      }
+
+      result = result.toString()
       this.showingResult = true;
       this.$emit("finish-computation", this.value, result);
       this.value = result;
@@ -70,8 +76,8 @@ export default defineComponent({
         this.showingResult = false;
       }
     },
-    evaluateExpression(expression: string): string {
-      return postCalculation()
+    async evaluateExpression(expression: string): Promise<string> {
+      return postCalculation(expression)
     },
   },
   data: () => ({

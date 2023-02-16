@@ -6,7 +6,14 @@ import java.util.Map;
 
 public class CalculatorService {
 
-    public String calculate(String expression) {
+    /**
+     * Calculates from multi-operational expression
+     *
+     * @param expression String
+     * @return String
+     * @throws NumberFormatException thrown if invalid characters
+     */
+    public String calculate(String expression) throws NumberFormatException {
 
         List<String> outputQueue = new ArrayList<>();
         List<Character> operatorStack = new ArrayList<>();
@@ -34,7 +41,7 @@ public class CalculatorService {
                     }
                     operatorStack.add(token);
                 } else {
-                    return "Error: Invalid characters";
+                    throw new NumberFormatException("Invalid characters");
                 }
             }
         }
