@@ -9,13 +9,13 @@
         <div id="numbers-plus">
           <div class="buttons-3-grid">
             <Button type="C" @click="
-  value = '0';
-showingResult = true;
-            " data-testid="calculator-button-C" />
+              value = '0';
+            showingResult = true;
+                                        " data-testid="calculator-button-C" />
             <Button type="ANS" @click="
-  value = '0';
-showingResult = true;
-            " data-testid="calculator-button-AC" />
+              value = '0';
+            showingResult = true;
+                                        " data-testid="calculator-button-AC" />
             <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')"
               data-testid="calculator-button-DEL" />
           </div>
@@ -35,12 +35,13 @@ showingResult = true;
         </div>
       </div>
     </div>
-  </div>
+</div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from "vue";
 import Button from "./Button.vue";
+import { postCalculation } from "@/services/calculator";
 
 export default defineComponent({
   name: "Calculator",
@@ -70,73 +71,7 @@ export default defineComponent({
       }
     },
     evaluateExpression(expression: string): string {
-      let outputQueue = "";
-      let operatorStack = [] as string[];
-      let operators = {
-        "/": 2,
-        "*": 2,
-        "+": 1,
-        "-": 1,
-      } as { [key: string]: number };
-      expression = expression.replace(/\s+/g, "");
-      let currentNumber = "";
-      for (let i = 0; i < expression.length; i++) {
-        let token = expression[i];
-        if (!isNaN(parseInt(token)) || token === ".") {
-          currentNumber += token;
-          if (i === expression.length - 1) {
-            outputQueue += currentNumber + " ";
-          }
-        } else {
-          outputQueue += currentNumber + " ";
-          currentNumber = "";
-          if (token in operators) {
-            let o1 = token;
-            let o2 = operatorStack[operatorStack.length - 1];
-            while (o2 in operators && operators[o1] <= operators[o2]) {
-              outputQueue += operatorStack.pop() + " ";
-              o2 = operatorStack[operatorStack.length - 1];
-            }
-            operatorStack.push(o1);
-          } else {
-            return "Error: Invalid characters";
-          }
-        }
-      }
-      while (operatorStack.length > 0) {
-        outputQueue += operatorStack.pop() + " ";
-      }
-      let rpn = outputQueue;
-      let resultStack = [] as string[];
-      let tokens = rpn.split(" ");
-      for (let i = 0; i < tokens.length; i++) {
-        let token = tokens[i];
-        if (!isNaN(parseFloat(token))) {
-          resultStack.push(parseFloat(token).toString());
-        } else {
-          if (resultStack.length > 1) {
-            let a = parseFloat(resultStack.pop() || "0");
-            let b = parseFloat(resultStack.pop() || "0");
-            let result = 0;
-            switch (token) {
-              case "+":
-                result = b + a;
-                break;
-              case "-":
-                result = b - a;
-                break;
-              case "*":
-                result = b * a;
-                break;
-              case "/":
-                result = b / a;
-                break;
-            }
-            resultStack.push(result.toString());
-          }
-        }
-      }
-      return resultStack[0];
+      return postCalculation()
     },
   },
   data: () => ({
