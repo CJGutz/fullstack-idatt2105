@@ -1,6 +1,6 @@
 package edu.ntnu.idatt2105.calculator.resources
 
-import org.springframework.http.HttpStatusCode
+import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
@@ -12,6 +12,6 @@ class FeedbackResource {
 
     @PostMapping
     fun postFeedbackFormData(): ResponseEntity<String>
-        = ResponseEntity("OK", HttpStatusCode.valueOf(201))
+        = ResponseEntity("OK", HttpStatus.valueOf(201))
 
 }

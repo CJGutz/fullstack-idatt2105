@@ -32,5 +32,4 @@ public class CalculatorResource {
         return ResponseEntity.ok(result);
     }
 
-
 }
