@@ -25,8 +25,6 @@ public class TokenResource {
     @PostMapping(value = "")
     @ResponseStatus(value = HttpStatus.CREATED)
     public String generateToken(final @RequestBody LoginRequest loginRequest) throws Exception {
-        // if username and password are valid, issue an access token
-        // note that subsequent requests need this token
         if (Objects.equals(loginRequest.getUsername(), "ole")) {
             return generateToken(loginRequest.getUsername());
         }

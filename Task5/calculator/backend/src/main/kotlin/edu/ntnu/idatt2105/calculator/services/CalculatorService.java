@@ -1,10 +1,36 @@
 package edu.ntnu.idatt2105.calculator.services;
 
+import edu.ntnu.idatt2105.calculator.models.Calculation;
+import edu.ntnu.idatt2105.calculator.repositories.CalculationRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class CalculatorService {
+
+    private final CalculationRepository calculationRepository;
+
+    public CalculatorService(CalculationRepository calculationRepository) {
+        super();
+        this.calculationRepository = calculationRepository;
+    }
+
+    public Calculation saveCalculation(String expression, String result) {
+        Calculation calculation = new Calculation();
+        calculation.setExpression(expression);
+        calculation.setResult(result);
+
+        calculationRepository.save(calculation);
+        return calculation;
+    }
+
+    public List<Calculation> getAllCalculations() {
+        return calculationRepository.findAll();
+    }
 
     /**
      * Calculates from multi-operational expression
