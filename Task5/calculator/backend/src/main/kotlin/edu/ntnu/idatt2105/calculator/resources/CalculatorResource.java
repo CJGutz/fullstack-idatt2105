@@ -2,7 +2,10 @@ package edu.ntnu.idatt2105.calculator.resources;
 
 import edu.ntnu.idatt2105.calculator.dto.CalculationDTO;
 import edu.ntnu.idatt2105.calculator.models.Calculation;
+import edu.ntnu.idatt2105.calculator.models.User;
 import edu.ntnu.idatt2105.calculator.services.CalculatorService;
+import edu.ntnu.idatt2105.calculator.services.LoginService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -11,6 +14,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @CrossOrigin("*")
 public class CalculatorResource {
@@ -18,16 +23,18 @@ public class CalculatorResource {
     private static final Logger LOGGER = LoggerFactory.getLogger(CalculatorResource.class);
 
     private final CalculatorService calculatorService;
+    private final LoginService loginService;
 
-    public CalculatorResource(CalculatorService calculatorService) {
+    public CalculatorResource(CalculatorService calculatorService, LoginService loginService) {
         super();
         this.calculatorService = calculatorService;
+        this.loginService = loginService;
     }
 
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping(value = "/calculate", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/calculate")
     @ResponseBody
     public ResponseEntity<Object> calculate(@RequestBody Calculation body) {
         LOGGER.info("Received: " + body.getExpression());
@@ -49,5 +56,13 @@ public class CalculatorResource {
 
         return ResponseEntity.ok(calculationDTO);
     }
+
+    @GetMapping("/calculations")
+    public ResponseEntity<User> getCalculations(HttpServletRequest request) {
+        User user = loginService.getUserByToken(request.getHeader("Authorization").substring(7)).orElseThrow();
+        List<Calculation> calculations = calculatorService.getAllCalculations();
+        return ResponseEntity.ok(user);
+    }
+
 
 }
