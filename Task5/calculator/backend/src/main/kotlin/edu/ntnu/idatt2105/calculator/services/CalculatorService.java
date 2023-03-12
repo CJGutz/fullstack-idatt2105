@@ -1,6 +1,7 @@
 package edu.ntnu.idatt2105.calculator.services;
 
 import edu.ntnu.idatt2105.calculator.models.Calculation;
+import edu.ntnu.idatt2105.calculator.models.User;
 import edu.ntnu.idatt2105.calculator.repositories.CalculationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,10 @@ public class CalculatorService {
 
     public List<Calculation> getAllCalculations() {
         return calculationRepository.findAll();
+    }
+
+    public List<Calculation> getCalculationsByUser(User user) {
+        return user.getCalculations();
     }
 
     /**

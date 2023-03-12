@@ -36,7 +36,9 @@ public class CalculatorResource {
 
     @PostMapping(value = "/calculate")
     @ResponseBody
-    public ResponseEntity<Object> calculate(@RequestBody Calculation body) {
+    public ResponseEntity<Object> calculate(@RequestBody Calculation body, HttpServletRequest request) {
+        User user = loginService.getUserByToken(request.getHeader("Authorization").substring(7)).orElseThrow();
+
         LOGGER.info("Received: " + body.getExpression());
         if (body.getExpression() == null) return ResponseEntity.noContent().build();
         String result;
@@ -52,16 +54,19 @@ public class CalculatorResource {
         LOGGER.info("Sending: " + result);
 
         Calculation calculation = calculatorService.saveCalculation(body.getExpression(), result);
+        user.getCalculations().add(calculation);
         CalculationDTO calculationDTO = modelMapper.map(calculation, CalculationDTO.class);
 
         return ResponseEntity.ok(calculationDTO);
     }
 
     @GetMapping("/calculations")
-    public ResponseEntity<User> getCalculations(HttpServletRequest request) {
+    public ResponseEntity<List<CalculationDTO>> getCalculations(HttpServletRequest request) {
         User user = loginService.getUserByToken(request.getHeader("Authorization").substring(7)).orElseThrow();
-        List<Calculation> calculations = calculatorService.getAllCalculations();
-        return ResponseEntity.ok(user);
+        List<Calculation> calculations = calculatorService.getCalculationsByUser(user);
+
+        List<CalculationDTO> calculationDTOS = calculations.stream().map(c -> modelMapper.map(c, CalculationDTO.class)).toList();
+        return ResponseEntity.ok(calculationDTOS);
     }
 
 

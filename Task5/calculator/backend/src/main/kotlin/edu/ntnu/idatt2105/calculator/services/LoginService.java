@@ -8,6 +8,7 @@ import edu.ntnu.idatt2105.calculator.repositories.UserRepository;
 import edu.ntnu.idatt2105.calculator.resources.TokenResource;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Optional;
 
 @Service
@@ -29,7 +30,7 @@ public class LoginService {
     }
 
     public User register(String username, String password) {
-        User newUser = new User(username, password);
+        User newUser = new User(username, password, new ArrayList<>());
         return userRepository.save(newUser);
     }
 
