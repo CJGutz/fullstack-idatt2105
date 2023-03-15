@@ -10,7 +10,6 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,6 +54,7 @@ public class CalculatorResource {
 
         Calculation calculation = calculatorService.saveCalculation(body.getExpression(), result);
         user.getCalculations().add(calculation);
+        loginService.saveUser(user);
         CalculationDTO calculationDTO = modelMapper.map(calculation, CalculationDTO.class);
 
         return ResponseEntity.ok(calculationDTO);
@@ -62,8 +62,12 @@ public class CalculatorResource {
 
     @GetMapping("/calculations")
     public ResponseEntity<List<CalculationDTO>> getCalculations(HttpServletRequest request) {
-        User user = loginService.getUserByToken(request.getHeader("Authorization").substring(7)).orElseThrow();
+        String token = request.getHeader("Authorization").substring(7);
+        LOGGER.info("Found token " + token);
+        User user = loginService.getUserByToken(token).orElseThrow();
+        LOGGER.info("Found user " + user.getUsername());
         List<Calculation> calculations = calculatorService.getCalculationsByUser(user);
+        LOGGER.info("Calculations size: " + calculations.size());
 
         List<CalculationDTO> calculationDTOS = calculations.stream().map(c -> modelMapper.map(c, CalculationDTO.class)).toList();
         return ResponseEntity.ok(calculationDTOS);

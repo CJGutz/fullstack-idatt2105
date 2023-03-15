@@ -5,7 +5,10 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import edu.ntnu.idatt2105.calculator.models.User;
 import edu.ntnu.idatt2105.calculator.repositories.UserRepository;
+import edu.ntnu.idatt2105.calculator.resources.LoginResource;
 import edu.ntnu.idatt2105.calculator.resources.TokenResource;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,6 +16,8 @@ import java.util.Optional;
 
 @Service
 public class LoginService {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginResource.class);
 
     private final UserRepository userRepository;
 
@@ -31,6 +36,7 @@ public class LoginService {
 
     public User register(String username, String password) {
         User newUser = new User(username, password, new ArrayList<>());
+        LOGGER.info("Saving user...");
         return userRepository.save(newUser);
     }
 
@@ -39,6 +45,10 @@ public class LoginService {
         final JWTVerifier verifier = JWT.require(hmac512).build();
         String username = verifier.verify(token).getSubject();
         return userRepository.findById(username);
+    }
+
+    public void saveUser(User user) {
+        userRepository.save(user);
     }
 
 }

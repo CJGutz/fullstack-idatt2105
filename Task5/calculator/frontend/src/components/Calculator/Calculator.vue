@@ -8,14 +8,8 @@
       <div class="flex-center">
         <div id="numbers-plus">
           <div class="buttons-3-grid">
-            <Button type="C" @click="
-              value = '0';
-            showingResult = true;
-                                                                                  " data-testid="calculator-button-C" />
-            <Button type="ANS" @click="
-              value = '0';
-            showingResult = true;
-                                                                                  " data-testid="calculator-button-AC" />
+            <Button type="C" @click="value = '0'; showingResult = true;" data-testid="calculator-button-C" />
+            <Button type="ANS" @click="value = '0'; showingResult = true;" data-testid="calculator-button-AC" />
             <Button type="DEL" @click="value = value.replace(/(\s+)*(\S)(\s*)$/, '')"
               data-testid="calculator-button-DEL" />
           </div>
@@ -35,7 +29,7 @@
         </div>
       </div>
     </div>
-</div>
+  </div>
 </template>
 
 <script lang="ts">
@@ -77,7 +71,13 @@ export default defineComponent({
       }
     },
     async evaluateExpression(expression: string): Promise<string> {
-      return postCalculation(expression)
+      let token = sessionStorage.getItem("token")
+      if (!token) {
+        this.$router.push("/register");
+        return "";
+      }
+      let calculation = await postCalculation(expression, token)
+      return calculation.result
     },
   },
   data: () => ({

@@ -5,6 +5,8 @@ import edu.ntnu.idatt2105.calculator.models.LoginRequest;
 import edu.ntnu.idatt2105.calculator.models.User;
 import edu.ntnu.idatt2105.calculator.services.LoginService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,6 +21,8 @@ import java.util.Optional;
 public class LoginResource {
 
     private final LoginService loginService;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LoginResource.class);
 
     @Autowired
     private ModelMapper modelMapper;
@@ -40,9 +44,11 @@ public class LoginResource {
 
     @PostMapping("/register")
     public ResponseEntity<UserDTO> register(@RequestBody LoginRequest request) {
+        LOGGER.info("Registering new user with username: " + request.getUsername() + " and password: " + request.getPassword());
         User user;
         try {
             user = loginService.register(request.getUsername(), request.getPassword());
+            LOGGER.info("User is registered.");
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

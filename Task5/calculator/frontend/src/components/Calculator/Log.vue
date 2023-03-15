@@ -11,23 +11,19 @@
 
 <script lang="ts">
 import { defineComponent } from "vue";
-
-export interface LogItem {
-  computation: string;
-  result: number;
-}
+import { Calculation } from "@/services/calculator";
 
 export default defineComponent({
   name: "Log",
   props: {
     log: {
-      type: Array as () => LogItem[],
+      type: Array as () => Calculation[],
       required: true,
     },
   },
   computed: {
     logItems() {
-      return this.log.map((item) => `${item.computation} = ${item.result}`);
+      return this.log.map((item) => `${item.expression} = ${item.result}`);
     },
   },
 });

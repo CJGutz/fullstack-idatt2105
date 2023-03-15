@@ -1,7 +1,8 @@
 <template>
   <nav>
     <router-link :to="{ name: 'calculator' }">Calculator</router-link> |
-    <router-link :to="{ name: 'feedback' }">Feedback</router-link>
+    <router-link :to="{ name: 'feedback' }">Feedback</router-link> | 
+    <router-link :to="{ name: 'register' }">Register</router-link>
   </nav>
   <router-view />
 </template>
